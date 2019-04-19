@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+	</head>
+	<body>
+		<div id="box">
+			<ul class="ul_img">
+				<li><a href="javascript:alert(4);"><img src="img/05.jpg" /></a></li>
+		    	<li><a href="javascript:alert(0);"><img src="img/01.jpeg" /></a></li>
+		    	<li><a href="javascript:alert(1);"><img src="img/02.jpeg" /></a></li>
+		    	<li><a href="javascript:alert(2);"><img src="img/03.jpeg" /></a></li>
+		    	<li><a href="javascript:alert(3);"><img src="img/04.jpeg" /></a></li>
+		    	<li><a href="javascript:alert(4);"><img src="img/05.jpg" /></a></li>
+		    	<li><a href="javascript:alert(4);"><img src="img/01.jpeg" /></a></li>
+		    </ul>
+		    <ol class="btns">
+		    	<li class="ac"></li>
+		    	<li></li>
+		    	<li></li>
+		    	<li></li>
+		    	<li></li>
+		    </ol>
+	    	<a href="javascript:;" id="prev">&laquo;</a>
+	    	<a href="javascript:;" id="next">&raquo;</a>
+		</div>
+		<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			function Lbt(selector){
+				this.selector = document.querySelector(selector);
+				this.index = 0 ; //记录当前次数
+				this.lastIndex = 0;
+				this.timer = null;
+				
+				this.init();
+			}
+			Lbt.prototype.init = function(){
+				this.ul = document.querySelector(".ul_img");
+				this.imgs = this.ul.querySelectorAll("li");
+				this.btns = document.querySelector("ol").children;
+				this.next = document.querySelector("#next");
+				this.prev = document.querySelector("#prev");
+				this.imgWidth = this.imgs[0].offsetWidth; // 一张图片的宽度
+				this.bindEvents();
+			}
+			Lbt.prototype.bindEvents = function(){
+				for (let i = 0 ; i < this.btns.length ; i++) {
+					this.btns[i].onclick = ()=>{
+						this.index = i;
+						this.changeImg();
+					}
+				}
+				//下一张
+				this.next.onclick = ()=>{
+					this.index++;
+					if(this.index == this.btns.length){
+						this.index = 0 ;
+						this.ul.style.left = 0;
+					}
+					this.changeImg();
+				}
+				//上一张
+				this.prev.onclick = ()=>{
+					let _left = -(this.btns.length +1)* this.imgWidth
+					this.index--;
+					if(this.index < 0 ){
+						this.index = this.btns.length - 1;
+						this.ul.style.left = _left + "px";
+					}
+					this.changeImg();
+				}
+				
+			// 自动轮播
+				Lbt.prototype.autoPlay = function(){
+					this.timer = setInterval(()=>{
+						this.next.onclick();
+					},2000)
+				}
+				this.autoPlay();
+				this.selector.onmouseenter = ()=>{
+					clearInterval(this.timer);
+				}
+				this.selector.onmouseleave = ()=>{
+					this.autoPlay();
+				}
+			}
+//		
+			//方法
+			Lbt.prototype.changeImg = function(){
+				let _left = -(this.index + 1)*this.imgWidth;
+				this.btns[this.lastIndex].classList.remove("ac");
+				this.btns[this.index].classList.add("ac");
+				this.lastIndex = this.index;
+				tools.linearMove(this.ul,"left",_left,1000);
+			}
+			new Lbt("#box");
+		</script>
+	</body>
+</html>

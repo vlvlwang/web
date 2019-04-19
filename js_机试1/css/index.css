@@ -1,0 +1,77 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+ul,ol{
+	list-style: none;
+}
+#box{
+	width: 800px;
+	height: 400px;
+	margin: 20% auto;
+	overflow: hidden;
+	position: relative;
+}
+.ul_img{
+	width: 5600px;
+	height: 400px;
+	position: absolute;
+	left:-800px;
+	top: 0;
+	/*transition: all 2s;*/ 
+}
+.ul_img li{
+	float: left;
+	width: 800px;
+	height: 400px;
+}
+.btns {
+	/*width: 850px;*/
+	height: 20px;
+	position: absolute;
+	right: 45%;
+	bottom:10px;
+	z-index: 6;
+}
+.btns li{
+	width: 10px;
+	height: 10px;
+	border-radius: 10px;
+	color: #333;
+	background: rgba(255,255,255,0.5);
+	margin-left: 10px;
+	float: left;
+	line-height: 15px;
+	text-align: center;
+	cursor: pointer; /*鼠标变小手*/
+}
+.btns li.ac{
+	background: rgba(255,255,255,0.8);
+	color: white;
+}
+#box>a{
+	text-decoration: none;
+	position: absolute;
+	top: 50%;
+	margin-top: -10px;
+	height: 40px;
+	width: 40px;
+	text-align: center;
+	line-height: 32px;
+	font-size: 40px;
+	vertical-align: middle;	
+	color: white;
+	background: rgba(0,0,0,0.4);
+	z-index: 6;
+	cursor: pointer;
+}
+#prev{
+	left: 0;
+}
+#next{
+	right: 0;
+}
+img{
+	width: 800px;
+	height: 400px;
+}
